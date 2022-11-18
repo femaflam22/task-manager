@@ -6,10 +6,21 @@
         <div class="col-12 col-md-5 col-sm-12 col-xs-12"> 
             <div class="card card-create p-3 p-md-4">    
                 <h6 class="bold mb-4" id="head1">EDIT PROJECT</h6>
-                <form>
+				@if ($errors->any())
+					<div class="alert alert-danger">
+						<ul>
+							@foreach ($errors->all() as $error)
+								<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+				@endif
+                <form method="POST" action="{{route('project.update', $data['id'])}}">
+					@method('PATCH')
+					@csrf
                 	<div class="form-group">
                 		<label>Name</label>
-                		<input type="text" name="name" class="form-control">
+                		<input type="text" name="name" class="form-control" value="{{$data['name']}}">
                 	</div>
                 	<div class="d-flex justify-content-between mt-4">
                 		<a href="/" class="btn btn-secondary col-6 col-md-4">Back</a>

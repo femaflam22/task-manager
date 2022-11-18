@@ -14,7 +14,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('project.index');
+        // ngambil semua data dr table projects
+        $projects = Project::all();
+        $no = 1;
+        // tampilin halaman dengan data
+        return view('project.index', compact('projects','no'));
     }
 
     /**
@@ -39,7 +43,12 @@ class ProjectController extends Controller
         $request->validate([
             'name' => 'required|min:4',
         ]);
-        
+        // input data ke database
+        Project::create([
+            'name' => $request->name,
+        ]);
+        // redirect dengan pesan
+        return redirect()->route('home')->with('success', 'Berhasil menambahkan project baru!');
     }
 
     /**
@@ -59,9 +68,12 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit($id)
     {
-        return view('project.edit');
+        $data = Project::where('id', $id)->first();
+        // dd($data);
+        // compact => ngirim data dr controller ke blade
+        return view('project.edit', compact('data'));
     }
 
     /**
@@ -71,9 +83,18 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
-        //
+        // validasi
+        $request->validate([
+            'name' => 'required|min:4',
+        ]);
+        // update ke db
+        Project::where('id', $id)->update([
+            'name' => $request->name,
+        ]);
+        // redirect
+        return redirect('/')->with('success_edit', 'Berhasil mengubah data project!');
     }
 
     /**
@@ -82,8 +103,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy($id)
     {
-        //
+        Project::where('id', $id)->delete();
+        return redirect('/')->with('deleted', 'Berhasil menghapus data project');
     }
 }

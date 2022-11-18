@@ -24,8 +24,11 @@ Route::get('/', [ProjectController::class, 'index'])->name('home');
 Route::prefix('/project')->name('project.')->group(function () {
     Route::get('/', [ProjectController::class, 'index'])->name('index');
     Route::get('/create', [ProjectController::class, 'create'])->name('create');
-    Route::post('/create', [ProjectController::class, 'store'])->name('store');
+    Route::post('/store', [ProjectController::class, 'store'])->name('store');
+    // kalau ada {} artinya data dinamis atau data dr db
     Route::get('/edit/{id}', [ProjectController::class, 'edit'])->name('edit');
+    Route::patch('/update/{id}', [ProjectController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [ProjectController::class, 'destroy'])->name('destroy');
 });
 
 Route::prefix('/task/{project}')->name('task.')->group(function () {
