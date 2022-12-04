@@ -28,12 +28,10 @@
                     {{ session('deleteTask') }}
                 </div>
                 @endif
-
                 <div class="input-box">
                     <input type="text" class="form-control">
                     <i class="fa fa-search"></i>                    
                 </div>
-                
                 <!-- karna task datanya banyak jd buat diaksesnya perlu perulangan. nama variable awalnya sama dengan nama compact untuk as nya apaaja untuk mewakilkan per satu baris data -->
                 @foreach($dataTask as $task)
                 <div class="list border-bottom">
@@ -53,7 +51,6 @@
                     </div>                   
                 </div>
                 @endforeach
-
           </div>
       </div>
     </div>

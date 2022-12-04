@@ -44,6 +44,7 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request, $project)
     {
         // validasi
@@ -96,6 +97,7 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $project, $id)
     {
         // validasi
@@ -120,6 +122,7 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($project, $id)
     {
         // hapus data dari databasenya

@@ -4,7 +4,7 @@
 <div class="container-fluid mt-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-5 col-sm-12 col-xs-12"> 
-            <div class="card card-create p-3 p-md-4">    
+            <div class="card card-create p-3 p-md-4">
                 <h6 class="bold mb-4" id="head1">EDIT TASK in {{$dataProject['name']}} PROJECT</h6>
                 <form method="POST" action="/task/{{$dataProject['id']}}/update/{{$task['id']}}">
                     @csrf

@@ -4,7 +4,7 @@
 <div class="container-fluid mt-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-5 col-sm-12 col-xs-12"> 
-            <div class="card card-create p-3 p-md-4">    
+            <div class="card card-create p-3 p-md-4">  
                 <!-- untuk menampilkan data dinamis atau data yg diambil dari database harus menggunakan kurung kurawal dua kali, nama variablenya sama dengan nama yg dikirim di compact -->
                 <h6 class="bold mb-4" id="head1">NEW TASK in {{ $project['name'] }} PROJECT</h6>
                 @if ($errors->any())
