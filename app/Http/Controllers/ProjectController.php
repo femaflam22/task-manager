@@ -12,10 +12,24 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // ngambil semua data dr table projects
-        $projects = Project::all();
+        // serta mengambil juga data dr table tasks
+        // data table tasks dikelompokkan berdasarkan project_id nya
+        // misal :
+        // 1 baris project yg id nya 1 -> didalemnya bakal ngambil data dr table tasks yang punya project_id 1
+        // id : 1, name : laravel, created, updated, + tasks : array data dr table tasks yang punya project_id 1
+        // simplePaginate -> membatasi jumlah data yang ditampilkan
+        // minimal data yg ditampilkan disimpan didalam parameter
+        // paginate() dan simplePaginate() sama aja, cuman beda di tampilannya
+        // kalau paginate ada angka sma iconnya dan dia hrs dikasi css custom
+        // karena di dalam index ada fitur search yg bakal balik ke method index ini juga, jd sebelum ngambil datanya pake where dulu. $request->search_project diambil dr input yang name nya search_project
+        // % didepan -> data huruf awal
+        // % dibelakang -> data huruf belakang
+        // % depan belakang -> data huruf depan belakang
+        // argument pertama where -> nama column di database
+        $projects = Project::where('name', 'LIKE','%'.$request->search_project.'%')->with('tasks')->simplePaginate(5);
         $no = 1;
         // tampilin halaman dengan data
         return view('project.index', compact('projects','no'));

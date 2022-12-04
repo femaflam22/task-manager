@@ -7,6 +7,8 @@
             <div class="card">
                 <div class="d-flex justify-content-between mb-3">
                     <a href="/project" class="btn btn-primary new"><i class="fas fa-backward"></i> Back</a>
+                    {{-- mengembalikan data kembali seperti awal setelah di search --}}
+                    <a href="/task/{{$dataProject['id']}}" class="btn btn-primary new">Refresh</a>
                     <a href="/task/{{$dataProject['id']}}/create" class="btn btn-primary new"><i class="fa fa-plus"></i> New</a>
                 </div>
 
@@ -28,10 +30,10 @@
                     {{ session('deleteTask') }}
                 </div>
                 @endif
-                <div class="input-box">
-                    <input type="text" class="form-control">
-                    <i class="fa fa-search"></i>                    
-                </div>
+                <form action="" method="GET" class="input-box">
+                    <input type="text" class="form-control" name="search_task">
+                    <button type="submit" class="btn btn-outline-none fa fa-search" style="padding: 0 !important"></button>                    
+                </form>
                 <!-- karna task datanya banyak jd buat diaksesnya perlu perulangan. nama variable awalnya sama dengan nama compact untuk as nya apaaja untuk mewakilkan per satu baris data -->
                 @foreach($dataTask as $task)
                 <div class="list border-bottom">
@@ -51,6 +53,10 @@
                     </div>                   
                 </div>
                 @endforeach
+                {{-- menampilkan pagination --}}
+                <div class="d-flex justify-content-end mt-4">
+                    {{ $dataTask->links() }}
+                </div>
           </div>
       </div>
     </div>

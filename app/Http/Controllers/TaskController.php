@@ -13,12 +13,15 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($project)
+    public function index(Request $request, $project)
     {
         // first() cuman satu data yg diambil
         $dataProject = Project::where('id', $project)->first();
-        // get() ambil banyak data
-        $dataTask = Task::where('project_id', $project)->get();
+        // kalau where ada dua atau lebih filternya pake array multidimensi []
+        $dataTask = Task::where([
+            ['project_id', $project],
+            ['name', 'LIKE', '%' . $request->search_task . '%'],
+        ])->simplePaginate(5);
         // compact itu bisa lebih dari satu variable buat pemisahnya pake koma ,
         return view('task.index', compact('dataProject', 'dataTask'));
     }

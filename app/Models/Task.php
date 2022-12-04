@@ -12,4 +12,11 @@ class Task extends Model
         'project_id',
         'name',
     ];
+
+    // untuk table yang disambungkan juga membuat method dengan nama table, tp tanpa s/es
+    public function project()
+    {
+        // untuk table yang disambungkan gunakan belongsTo
+        return $this->belongsTo(Project::class);
+    }
 }

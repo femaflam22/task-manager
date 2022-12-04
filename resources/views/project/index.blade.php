@@ -14,10 +14,16 @@
 
                 <div class="mt-3 inputs">
                     <i class="fa fa-search"></i>
-                    <div class="d-flex">
-                    	<input type="text" class="form-control " placeholder="Search Project...">
-                    	<button class="btn btn-outline-none text-success py-0" style="padding-top: 0 !important;">Cari</button>
-                    </div>
+					{{-- untuk fitur search, gunakan tag form, ada attribute name di inputnya, dan ada button yang type="submit" --}}
+					{{-- untuk fitur search, method pada form nya pake GET dan actionnya kosong, karena nnti route dan method controller nya bakal balik lg ke halaman (route path) yg sama kaya buat nampilin halaman index ini --}}
+                    <form class="d-flex" action="" method="GET">
+						{{-- kalau buat search, karna methodnya get gaperlu pake csrf --}}
+                    	<input type="text" name="search_project" class="form-control" placeholder="Search Project...">
+                    	<button type="submit" class="btn btn-outline-none text-success py-0" style="padding-top: 0 !important;">Cari</button>
+						{{-- untuk mengembalikan data seperti semula --}}
+						{{-- cara buat balikinnya panggil ulang route buat masuk ke halaman ini --}}
+						<a href="{{ route('project.index') }}" class="btn btn-outline-none text-primary pt-2">Refresh</a>
+                    </form>
                 </div>
 				{{-- pesan berhasil tambah data --}}
 				@if (session('success'))
@@ -48,7 +54,7 @@
 									<div class="d-flex flex-row align-items-center time-text">
 										<small>created {{$project['created_at']->format('j F, Y')}}</small>
 										<span class="dots"></span>
-										<small>5 tasks</small>
+										<small>{{ count($project['tasks']) }} tasks</small>
 										<span class="dots"></span>
 										{{-- {{route('project.edit', $project['id'])}} --}}
 										<small><a href="/project/edit/{{$project['id']}}" style="text-decoration: underline;">Edit</a></small>
@@ -65,6 +71,11 @@
 						</div>
 					</div>
 				@endforeach
+				{{-- menampilkan pagination --}}
+				{{-- variable yang dipanggil, bukan variable dr as yg foreach, tp variable yg di compact controller nya --}}
+				<div class="d-flex justify-content-end mt-4">
+					{{ $projects->links() }}
+				</div>
             </div>
         </div>
     </div>

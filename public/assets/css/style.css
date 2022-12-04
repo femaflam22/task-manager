@@ -154,7 +154,7 @@ body{
     position: relative;
 }
   
-.task .input-box i {
+.task .input-box .fa-search {
     position: absolute;
     right: 13px;
     top:15px;
